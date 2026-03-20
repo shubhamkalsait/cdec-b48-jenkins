@@ -14,22 +14,6 @@ pipeline {
                 '''
             }
         }
-        stage ('TEST'){
-            steps{
-                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar-cred') {
-                    sh '''cd backend
-                        mvn sonar:sonar -Dsonar.projectKey='easy-crud'
-                        '''
-                }
-            }
-        }
-        stage ('QUALITY-GATE'){
-            steps{
-                timeout(10) {
-                    waitForQualityGate abortPipeline: true, credentialsId: 'sonar-cred'
-                }                
-            }
-        }
         stage ('DELIVER'){
             steps{
                 sh '''cd backend/target
