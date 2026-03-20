@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    stages {
+        stage ('PULL'){
+            steps{
+                git branch: 'main', url: 'https://github.com/shubhamkalsait/EasyCRUD.git'
+            }
+        }
+        stage ('BUILD'){
+            steps{
+                sh '''
+                    cd frontend
+                    npm install
+                    npm run build
+                '''
+            }
+        }
+        stage ('DEPLOY'){
+            steps{
+                sh '''
+                    cd frontend
+                    aws s3 cp dist/ s3://cbz-easycrud-b48/ --recursive
+                '''
+            }
+        }
+                      
+    }
+    post {
+        always {
+            cleanWs(cleanWhenNotBuilt: false,
+                    deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true,
+                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'],
+                               [pattern: '.propsfile', type: 'EXCLUDE']])
+        }
+    }
+}
