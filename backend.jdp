@@ -16,8 +16,8 @@ pipeline {
         }
         stage ('DELIVER'){
             steps{
-                sh '''cd backend/target
-                    
+                sh '''cd backend
+                    docker build -t shubhamkalsait1/
                     '''
             }
         }
