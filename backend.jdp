@@ -14,7 +14,7 @@ pipeline {
                 '''
             }
         }
-        stage ('DELIVER'){
+        stage ('DEPLOY'){
             steps{
                 sh '''cd backend
                     docker build -t shubhamkalsait1/backend-app:latest
