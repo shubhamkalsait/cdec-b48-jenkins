@@ -19,7 +19,8 @@ pipeline {
             steps{
                 input 'Wait for approval'
             }
-        }stage('APPLY'){
+        }
+        stage('APPLY'){
             steps{
                 sh'''
                 cd infra/radison-hms-infra
