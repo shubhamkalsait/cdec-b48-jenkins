@@ -17,7 +17,9 @@ pipeline {
         stage ('DELIVER'){
             steps{
                 sh '''cd backend
-                    docker build -t shubhamkalsait1/
+                    docker build -t shubhamkalsait1/backend-app:latest
+                    docker push shubhamkalsait1/backend-app:latest
+                    kubectl apply -f yaml/
                     '''
             }
         }
