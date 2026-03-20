@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    stages{
+        stage('PULL'){
+            steps{
+                git branch: 'main', url: ' https://github.com/shubhamkalsait/cdec-b48-terraform.git '
+            }
+        }
+        stage('PLAN'){
+            steps{
+                sh'''
+                cd infra/radison-hms-infra
+                terraform init
+                terraform plan
+                '''
+            }
+        }
+        stage('APPROVAL'){
+            steps{
+                input 'Wait for approval'
+            }
+        }stage('APPLY'){
+            steps{
+                sh'''
+                cd infra/radison-hms-infra
+                terraform apply -auto-approve
+                '''
+            }
+        }
+    }
+}
