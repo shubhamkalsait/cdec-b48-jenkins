@@ -17,7 +17,7 @@ pipeline {
         stage ('DOCKER-BUILD'){
             steps{
                 sh '''cd backend
-                    docker build -t shubhamkalsait1/backend-app:latest
+                    docker build -t shubhamkalsait1/backend-app:latest .
                     docker push shubhamkalsait1/backend-app:latest
                     docker rmi shubhamkalsait1/backend-app:latest
                     '''
